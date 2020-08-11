@@ -4,17 +4,24 @@
   "description": "A tile map based game written in typescript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-serve ./webpack.config.js"
+    "build": "webpack",
+    "start": "webpack-dev-server --open"
   },
   "author": "",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/file-loader": "^4.2.0",
+    "@types/node": "^14.0.27",
+    "css-loader": "^4.2.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "ts-node": "^8.10.2",
     "source-map-loader": "^0.2.3",
     "ts-loader": "^4.0.0",
     "typescript": "^2.7.2",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.10",
-    "webpack-serve": "^0.1.5"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

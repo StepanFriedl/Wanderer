@@ -1,25 +1,46 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-    mode: "development",
-    entry: "./src/index.ts",
-    output: {
-        filename: "bundle.js"
+    mode: 'development',
+    entry: './src/index.ts',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
     },
-
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
-
-    resolve: {
-        // Add '.ts'  as resolvable extensions.
-        extensions: [".ts", ".js", ".json"]
-    },
-
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Inheritance',
+            template: 'index.html'
+        }),
+    ],
     module: {
         rules: [
-            // All files with a '.ts'  extension will be handled by 'ts-loader'.
-            { test: /\.ts?$/, loader: "ts-loader" },
-
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
-        ]
-    }
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader',
+                ],
+            }
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
 };
