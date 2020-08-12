@@ -10,8 +10,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Inheritance',
-            template: 'index.html'
+            template: './src/index.html'
         }),
     ],
     module: {
@@ -33,7 +32,14 @@ module.exports = {
                 use: [
                     'file-loader',
                 ],
-            }
+            },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+                options: {
+                    esModule: true,
+                }
+            },
         ],
     },
     resolve: {
