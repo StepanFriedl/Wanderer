@@ -61,7 +61,7 @@ window.onload = () => {
  */
 
 // Function to handle the key press events
-function onKeyPress(event) {
+function onKeyPress(event: any) {
   // Handle arrow keys
   switch (event.keyCode) {
     case 37:
