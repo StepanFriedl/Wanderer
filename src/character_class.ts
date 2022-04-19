@@ -8,7 +8,7 @@ export class Character {
   private ap: number;
   private apMax: number;
   private isAlive: boolean = true;
-  private position: number = 0;
+  private position: number;
   private level: number = 1;
 
   constructor(hp: number, dp: number, ap: number, level?: number) {
@@ -18,6 +18,10 @@ export class Character {
     this.dpMax = dp;
     this.ap = ap;
     this.apMax = ap;
+    
+    const temp: number = Math.floor(Math.random()*100)
+    this.position = temp;
+
   }
   public getPosition(): number {
     return this.position;

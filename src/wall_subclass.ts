@@ -2,6 +2,10 @@
 import { Tile } from "./tiles_class"
 
 export class Wall extends Tile {
+  constructor() {
+    super();
+    super.setEmptyness(false);
+  }
   public draw(x: number, y: number, width: number = 40, height: number = 40) {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
