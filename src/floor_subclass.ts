@@ -9,4 +9,7 @@ export class Floor extends Tile {
     const floor = document.getElementById('floor') as HTMLImageElement;
     ctx.drawImage(floor, x, y, width, height)
   }
+  public isThrough(): boolean {
+    return true;
+  }
 }

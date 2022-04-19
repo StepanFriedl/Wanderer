@@ -31,4 +31,7 @@ export class Field {
       }
     }
   }
+  public getTiles(): Tile[] {
+    return this.tiles;
+  }
 }

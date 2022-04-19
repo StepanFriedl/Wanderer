@@ -9,4 +9,7 @@ export class Wall extends Tile {
 
     ctx.drawImage(wall, x, y, width, height);
   }
+  public isThrough(): boolean {
+    return false;
+  }
 }
