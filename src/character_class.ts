@@ -32,6 +32,10 @@ export class Character {
   public iM(): string {
     return "character";
   }
+  public getDpValue(): number {
+    return this.dp;
+  }
+
   public strike(enemy: Character) {
     const dice: number = diceRoll();
     if(2*dice+this.getAp() > enemy.getDp()) {

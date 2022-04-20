@@ -17,10 +17,12 @@ export class Hero extends Character {
   public battle(position: number, game: Game): void {
     if (position === game.getBoss().getPosition()) {
       console.log("Hero fights boss.");
+      game.getBoss().writeEnemyStatusText();
     } else { }
     for (let i: number = 0; i < game.getMonsters().length; i++) {
       if (position === game.getMonsters()[i].getPosition()) {
         console.log("Hero fights monster" + i);
+        game.getMonsters()[i].writeEnemyStatusText();
       } else { }
     }
   }
@@ -29,7 +31,7 @@ export class Hero extends Character {
 
       const possibility: boolean = field.getTiles()[super.getPosition() + 1].isThrough();
       if (super.getPosition() % 10 === 9) { } else if (possibility) {
-        this.battle(this.getPosition() - 1, game);
+        this.battle(this.getPosition() + 1, game);
         super.setPositionRight();
         game.makeRound(game);
       } else { }
@@ -40,6 +42,7 @@ export class Hero extends Character {
       const possibility: boolean = field.getTiles()[super.getPosition() - 1].isThrough();
       if (super.getPosition() % 10 === 0) {
       } else if (possibility) {
+        this.battle(this.getPosition() - 1, game);
         super.setPositionLeft();
         game.makeRound(game);
       } else { }

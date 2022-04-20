@@ -14,8 +14,6 @@ const heroDown = document.getElementById('hero-down') as HTMLImageElement;
 const heroLeft = document.getElementById('hero-left') as HTMLImageElement;
 
 
-/* let myGame: Game = new Game(); */
-
 
 let diceThrow = diceRoll();
 const myGame: Game = new Game();
@@ -35,15 +33,14 @@ function onKeyPress(event: any) {
     //spacebar
     case 32:
       //boss
-      if(myGame.getHero().getPosition() === myGame.getBoss().getPosition()) {
+      if (myGame.getHero().getPosition() === myGame.getBoss().getPosition()) {
         myGame.getHero().strike(myGame.getBoss())
       }
       //monsters
-      for (let i : number = 0 ; i < myGame.getMonsters().length;i++) {
-        if(myGame.getHero().getPosition() === myGame.getMonsters()[i].getPosition()) {
+      for (let i: number = 0; i < myGame.getMonsters().length; i++) {
+        if (myGame.getHero().getPosition() === myGame.getMonsters()[i].getPosition()) {
           myGame.getHero().strike(myGame.getMonsters()[i])
         }
-
       }
       break;
 
