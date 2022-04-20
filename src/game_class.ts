@@ -30,6 +30,8 @@ export class Game {
     this.drawMonsters();
     this.round = 0;
   }
+
+
   public getLevel(): number {
     return this.level;
   }
@@ -61,6 +63,9 @@ export class Game {
   public getHero() {
     return this.hero;
   }
+  public getMonsters(): Monster[] {
+    return this.monsters
+  }
   public returnBoss() {
     return this.boss
   }
@@ -70,12 +75,12 @@ export class Game {
   public returnMonsters() {
     return this.monsters
   }
-  public makeRound(): void {
+  public makeRound(game: Game): void {
     this.round++;
     if (this.round % 2 === 0) {
-      this.boss.moveRandom(this.field)
+      this.boss.moveRandom(this.field, game)
       for (let i: number = 0; i < this.monsters.length; i++) {
-        this.monsters[i].moveRandom(this.field);
+        this.monsters[i].moveRandom(this.field, game);
       }
     }
   }
@@ -88,8 +93,8 @@ export class Game {
     ctx.font = "20px Arial"
     ctx.fillText("Hero", xPosition, yPosition);
     ctx.font = "15px Arial"
-    ctx.fillText("HP:   " + this.hero.getHp(), xPosition, yPosition + spacing * 1.5);
-    ctx.fillText("DP:   " + this.hero.getDp(), xPosition, yPosition + spacing * 2.5);
-    ctx.fillText("AP    " + this.hero.getAp(), xPosition, yPosition + spacing * 3.5);
+    ctx.fillText("HP:   " + this.hero.getHp() + " / " + this.hero.getMaxHp(), xPosition, yPosition + spacing * 1.5);
+    ctx.fillText("DP:   " + this.hero.getDp() + " / " + this.hero.getMaxDp(), xPosition, yPosition + spacing * 2.5);
+    ctx.fillText("AP    " + this.hero.getAp() + " / " + this.hero.getMaxAp(), xPosition, yPosition + spacing * 3.5);
   }
 }

@@ -10,5 +10,6 @@ export class Tile {
   public setEmptyness(value: boolean) {
     this.isEmpty = value;
   }
-
+  public draw(x: number, y: number, width: number = 40, height: number = 40) {
+  }
 }

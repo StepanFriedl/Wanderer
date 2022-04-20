@@ -32,10 +32,25 @@ function onKeyPress(event: any) {
   // Handle arrow keys
   switch (event.keyCode) {
 
+    //spacebar
+    case 32:
+      //boss
+      if(myGame.getHero().getPosition() === myGame.getBoss().getPosition()) {
+        myGame.getHero().strike(myGame.getBoss())
+      }
+      //monsters
+      for (let i : number = 0 ; i < myGame.getMonsters().length;i++) {
+        if(myGame.getHero().getPosition() === myGame.getMonsters()[i].getPosition()) {
+          myGame.getHero().strike(myGame.getMonsters()[i])
+        }
+
+      }
+      break;
+
     //left
     case 37:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveLeft(myGame.getField(), myGame);
+      myGame.getHero().heroMoveLeft(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("left");
@@ -46,7 +61,7 @@ function onKeyPress(event: any) {
     //up
     case 38:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveUp(myGame.getField(), myGame);
+      myGame.getHero().heroMoveUp(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("up");
@@ -55,9 +70,9 @@ function onKeyPress(event: any) {
       break;
 
     //right
-    case 39:      
+    case 39:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveRight(myGame.getField(), myGame);
+      myGame.getHero().heroMoveRight(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("right");
@@ -68,7 +83,7 @@ function onKeyPress(event: any) {
     //down
     case 40:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveDown(myGame.getField(), myGame);
+      myGame.getHero().heroMoveDown(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("down");

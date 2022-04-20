@@ -11,38 +11,58 @@ export class Hero extends Character {
     let sp: number = 5 + diceRoll;
     super(hp, dp, sp, field);
   }
-  public moveLeft(field: Field, game?: Game): void {
+  public iM(): string {
+    return "hero";
+  }
+  public battle(position: number, game: Game): void {
+    if (position === game.getBoss().getPosition()) {
+      console.log("Hero fights boss.");
+    } else { }
+    for (let i: number = 0; i < game.getMonsters().length; i++) {
+      if (position === game.getMonsters()[i].getPosition()) {
+        console.log("Hero fights monster" + i);
+      } else { }
+    }
+  }
+  public heroMoveRight(field: Field, game?: Game): void {
+    if (super.getPosition() < 99) {
+
+      const possibility: boolean = field.getTiles()[super.getPosition() + 1].isThrough();
+      if (super.getPosition() % 10 === 9) { } else if (possibility) {
+        this.battle(this.getPosition() - 1, game);
+        super.setPositionRight();
+        game.makeRound(game);
+      } else { }
+    } else { }
+  }
+  public heroMoveLeft(field: Field, game?: Game): void {
     if (super.getPosition() > 0) {
       const possibility: boolean = field.getTiles()[super.getPosition() - 1].isThrough();
       if (super.getPosition() % 10 === 0) {
       } else if (possibility) {
         super.setPositionLeft();
-        game.makeRound();
+        game.makeRound(game);
       } else { }
     } else { }
   }
-  public moveRight(field: Field, game?: Game): void {
-    const possibility: boolean = field.getTiles()[super.getPosition() + 1].isThrough();
-    if (super.getPosition() % 10 === 9) { } else if (possibility) {
-      super.setPositionRight();
-      game.makeRound();
-    } else { }
-  }
-  public moveDown(field: Field, game?: Game): void {
+  public heroMoveDown(field: Field, game?: Game): void {
     if (super.getPosition() < 90) {
       const possibility: boolean = field.getTiles()[super.getPosition() + 10].isThrough();
       if (super.getPosition() >= 90) { } else if (possibility) {
+        this.battle(this.getPosition() + 10, game);
         super.setPositionDown();
-        game.makeRound();
+        game.makeRound(game);
       } else { }
     }
   }
-  public moveUp(field: Field, game?: Game): void {
+  public heroMoveUp(field: Field, game?: Game): void {
     if (super.getPosition() > 9) {
       const possibility: boolean = field.getTiles()[super.getPosition() - 10].isThrough();
       if (super.getPosition() < 10) { } else if (possibility) {
+
+        this.battle(this.getPosition() - 10, game);
         super.setPositionUp();
-        game.makeRound();
+        game.makeRound(game);
       } else { }
     }
   }

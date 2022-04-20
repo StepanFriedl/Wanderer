@@ -3,6 +3,7 @@
 import { Field } from "./field_class";
 import { getRandomPosition } from "./get_random_position_function";
 import { Game } from "./game_class";
+import { diceRoll } from "./diceRoll function";
 
 export class Character {
   private hp: number;
@@ -25,14 +26,37 @@ export class Character {
 
     this.position = getRandomPosition(field);
   }
+  public writeEnemyStatusText(): void { }
+  public monsterBattle(position: number, heroPosition: number): void { }
+  public battle(position: number, game: Game) { }
+  public iM(): string {
+    return "character";
+  }
+  public strike(enemy: Character) {
+    const dice: number = diceRoll();
+    if(2*dice+this.getAp() > enemy.getDp()) {
+      console.log("Striking " + enemy.iM());      
+    }
+  }
+  public attackTile(game: Game, targetPosition: number): void {
+  }
   public getHp(): number {
     return this.hp
+  }
+  public getMaxHp(): number {
+    return this.hpMax
   }
   public getDp(): number {
     return this.dp
   }
+  public getMaxDp(): number {
+    return this.dpMax
+  }
   public getAp(): number {
     return this.ap
+  }
+  public getMaxAp(): number {
+    return this.apMax
   }
   public getPosition(): number {
     return this.position;
@@ -54,6 +78,7 @@ export class Character {
     if (this.position % 10 === 9) {
     } else if (possibility) {
       this.position += 1;
+
     } else { }
   }
   public moveLeft(field: Field, game?: Game): void {
@@ -61,7 +86,7 @@ export class Character {
       const possibility: boolean = field.getTiles()[this.position - 1].isThrough();
       if (this.position % 10 === 0) {
       } else if (possibility) {
-        this.position -= 1;
+        this.position--;
       } else { }
     }
   }
@@ -83,32 +108,38 @@ export class Character {
       } else { }
     }
   }
-  public moveRandom(field: Field): void {
+  public moveRandom(field: Field, game: Game): void {
     let tempBool: boolean = false;
+    const heroPosition: number = game.getHero().getPosition();
     do {
       let directionIndex: number = Math.ceil(Math.random() * 4);
       if (directionIndex <= 1 && this.position % 10 !== 9) { //right   
 
         if (field.getTiles()[this.position + 1].isThrough()) {
           tempBool = true;
+          this.monsterBattle(this.position + 1, heroPosition);
           this.moveRight(field);
+
         } else { }
       } else if (directionIndex <= 2 && this.position % 10 !== 0) { //left
         if (field.getTiles()[this.position - 1].isThrough()) {
           tempBool = true;
+          this.monsterBattle(this.position - 1, heroPosition);
           this.moveLeft(field);
         } else { }
       } else if (directionIndex <= 3 && this.position > 9) { //up
         if (field.getTiles()[this.position - 10].isThrough()) {
           tempBool = true;
+          this.monsterBattle(this.position - 10, heroPosition);
           this.moveUp(field);
         } else { }
       } else if (directionIndex <= 4 && this.position < 90) { //down
         if (field.getTiles()[this.position + 10].isThrough()) {
           tempBool = true;
+          this.monsterBattle(this.position + 10, heroPosition);
           this.moveDown(field);
         } else { }
-      } else {      }
+      } else { }
     } while (tempBool === false)
   }
 }
