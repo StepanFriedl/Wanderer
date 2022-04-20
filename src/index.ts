@@ -25,6 +25,7 @@ window.onload = () => {
   myGame.drawHero();
   myGame.drawMonsters();
   myGame.drawBoss();
+  myGame.writeHeroStatusText();
 };
 // Function to handle the key press events
 function onKeyPress(event: any) {
@@ -34,42 +35,45 @@ function onKeyPress(event: any) {
     //left
     case 37:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveLeft(myGame.getField());
+      myGame.getHero().moveLeft(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("left");
       myGame.drawMonsters();
+      myGame.writeHeroStatusText();
       break;
 
     //up
     case 38:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveUp(myGame.getField());
+      myGame.getHero().moveUp(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("up");
       myGame.drawMonsters();
-      break;
+      myGame.writeHeroStatusText();
       break;
 
     //right
-    case 39:
+    case 39:      
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveRight(myGame.getField());
+      myGame.getHero().moveRight(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("right");
       myGame.drawMonsters();
+      myGame.writeHeroStatusText();
       break;
 
     //down
     case 40:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myGame.getHero().moveDown(myGame.getField());
+      myGame.getHero().moveDown(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
       myGame.drawHero("down");
       myGame.drawMonsters();
+      myGame.writeHeroStatusText();
       break;
   }
 }

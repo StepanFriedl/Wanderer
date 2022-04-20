@@ -2,13 +2,49 @@
 
 import { Character } from "./character_class"
 import { Field } from "./field_class";
+import { Game } from "./game_class";
 
 export class Hero extends Character {
   constructor(field: Field, diceRoll: number) {
     let hp: number = 20 + 3 * diceRoll;
     let dp: number = 2 * diceRoll;
     let sp: number = 5 + diceRoll;
-      super(hp, dp, sp, field);
+    super(hp, dp, sp, field);
+  }
+  public moveLeft(field: Field, game?: Game): void {
+    if (super.getPosition() > 0) {
+      const possibility: boolean = field.getTiles()[super.getPosition() - 1].isThrough();
+      if (super.getPosition() % 10 === 0) {
+      } else if (possibility) {
+        super.setPositionLeft();
+        game.makeRound();
+      } else { }
+    } else { }
+  }
+  public moveRight(field: Field, game?: Game): void {
+    const possibility: boolean = field.getTiles()[super.getPosition() + 1].isThrough();
+    if (super.getPosition() % 10 === 9) { } else if (possibility) {
+      super.setPositionRight();
+      game.makeRound();
+    } else { }
+  }
+  public moveDown(field: Field, game?: Game): void {
+    if (super.getPosition() < 90) {
+      const possibility: boolean = field.getTiles()[super.getPosition() + 10].isThrough();
+      if (super.getPosition() >= 90) { } else if (possibility) {
+        super.setPositionDown();
+        game.makeRound();
+      } else { }
+    }
+  }
+  public moveUp(field: Field, game?: Game): void {
+    if (super.getPosition() > 9) {
+      const possibility: boolean = field.getTiles()[super.getPosition() - 10].isThrough();
+      if (super.getPosition() < 10) { } else if (possibility) {
+        super.setPositionUp();
+        game.makeRound();
+      } else { }
+    }
   }
   public drawSelf(direction: string): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
@@ -64,4 +100,5 @@ export class Hero extends Character {
       throw "wrong direction input"
     }
   }
+
 }

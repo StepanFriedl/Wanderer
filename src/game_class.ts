@@ -28,7 +28,7 @@ export class Game {
     this.hero.drawSelf("down");
     this.spawnMonsters(d6);
     this.drawMonsters();
-    
+    this.round = 0;
   }
   public getLevel(): number {
     return this.level;
@@ -38,7 +38,7 @@ export class Game {
     const numberOfMonstersTotal: number = 3 + diceRoll / 2;
     for (let i: number = 0; i < numberOfMonstersTotal; i++) {
       let someMonster: Monster = new Monster(this.field, diceRoll, this.level);
-      this.monsters.push(someMonster)      
+      this.monsters.push(someMonster)
     }
   }
   public drawField(): void {
@@ -73,7 +73,23 @@ export class Game {
   public makeRound(): void {
     this.round++;
     if (this.round % 2 === 0) {
-      
+      this.boss.moveRandom(this.field)
+      for (let i: number = 0; i < this.monsters.length; i++) {
+        this.monsters[i].moveRandom(this.field);
+      }
     }
+  }
+  public writeHeroStatusText(): void {
+    const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+    const xPosition: number = 10;
+    const yPosition: number = 30;
+    const spacing: number = 20;
+    ctx.font = "20px Arial"
+    ctx.fillText("Hero", xPosition, yPosition);
+    ctx.font = "15px Arial"
+    ctx.fillText("HP:   " + this.hero.getHp(), xPosition, yPosition + spacing * 1.5);
+    ctx.fillText("DP:   " + this.hero.getDp(), xPosition, yPosition + spacing * 2.5);
+    ctx.fillText("AP    " + this.hero.getAp(), xPosition, yPosition + spacing * 3.5);
   }
 }
