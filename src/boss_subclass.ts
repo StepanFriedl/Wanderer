@@ -1,11 +1,15 @@
 'use strict'
 
 import { Character } from "./character_class"
+import { Field } from "./field_class";
 
 export class Boss extends Character {
 
-  constructor(hp: number, dp: number, ap: number, field: Field) {
-    super(hp, dp, ap, field);
+  constructor(field: Field, diceRoll: number, level: number) {
+    let hp: number = 2 * level * diceRoll + diceRoll;
+    let dp: number = (level/2) * diceRoll + ( diceRoll / 2 )
+    let sp: number = level * diceRoll + level;
+      super(hp, dp, sp, field);
   }
   public drawSelf(): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;

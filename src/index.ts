@@ -1,11 +1,7 @@
 'use strict';
 
 import { diceRoll } from "./diceRoll function";
-import { Field } from "./field_class";
-import { Hero } from "./hero_subclass";
-import { Tile } from "./tiles_class";
-import { Boss } from "./boss_subclass";
-import { getRandomPosition } from "./get_random_position_function";
+import { Game } from "./game_class";
 
 // Acquire the rendering context
 const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
@@ -17,54 +13,63 @@ const heroRight = document.getElementById('hero-right') as HTMLImageElement;
 const heroDown = document.getElementById('hero-down') as HTMLImageElement;
 const heroLeft = document.getElementById('hero-left') as HTMLImageElement;
 
-const myField: Field = new Field([4, 14, 16, 18, 19, 22, 23, 24, 26, 28, 29, 36, 41, 42, 43, 44, 46, 47, 48, 49, 52, 54, 62, 64, 66, 67, 69, 76, 77, 79, 82, 83, 84, 89, 94, 96, 97]);
-let myHero: Hero = new Hero(100, 100, 100, myField);
-let myBoss: Boss = new Boss(100, 100, 100, myField);
 
+/* let myGame: Game = new Game(); */
+
+
+let diceThrow = diceRoll();
+const myGame: Game = new Game();
 
 // This function runs after the images are loaded
 window.onload = () => {
-  myField.drawField();
-  myHero.drawSelf('down');
-  myBoss.drawSelf();
+  myGame.drawHero();
+  myGame.drawMonsters();
+  myGame.drawBoss();
 };
-
-
 // Function to handle the key press events
 function onKeyPress(event: any) {
   // Handle arrow keys
   switch (event.keyCode) {
+
     //left
     case 37:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myField.drawField();
-      myHero.moveLeft(myField);
-      myHero.drawSelf("left");
-      myBoss.drawSelf();
+      myGame.getHero().moveLeft(myGame.getField());
+      myGame.drawField();
+      myGame.drawBoss()
+      myGame.drawHero("left");
+      myGame.drawMonsters();
       break;
+
     //up
     case 38:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myField.drawField();
-      myHero.moveUp(myField);
-      myHero.drawSelf("up");      
-      myBoss.drawSelf();
+      myGame.getHero().moveUp(myGame.getField());
+      myGame.drawField();
+      myGame.drawBoss()
+      myGame.drawHero("up");
+      myGame.drawMonsters();
       break;
+      break;
+
     //right
     case 39:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myField.drawField();
-      myHero.moveRight(myField);
-      myHero.drawSelf("right");
-      myBoss.drawSelf();
+      myGame.getHero().moveRight(myGame.getField());
+      myGame.drawField();
+      myGame.drawBoss()
+      myGame.drawHero("right");
+      myGame.drawMonsters();
       break;
+
     //down
     case 40:
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      myField.drawField();
-      myHero.moveDown(myField);
-      myHero.drawSelf("down");
-      myBoss.drawSelf();
+      myGame.getHero().moveDown(myGame.getField());
+      myGame.drawField();
+      myGame.drawBoss()
+      myGame.drawHero("down");
+      myGame.drawMonsters();
       break;
   }
 }

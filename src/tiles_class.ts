@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 export class Tile {
   private isEmpty: boolean = false;
   constructor() {}

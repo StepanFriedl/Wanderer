@@ -4,8 +4,11 @@ import { Character } from "./character_class"
 import { Field } from "./field_class";
 
 export class Hero extends Character {
-  constructor(hp: number, dp: number, ap: number, field: Field) {
-    super(hp, dp, ap, field);
+  constructor(field: Field, diceRoll: number) {
+    let hp: number = 20 + 3 * diceRoll;
+    let dp: number = 2 * diceRoll;
+    let sp: number = 5 + diceRoll;
+      super(hp, dp, sp, field);
   }
   public drawSelf(direction: string): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
@@ -50,13 +53,13 @@ export class Hero extends Character {
       throw "Cannot draw, cause position is out of range."
     }
     if (direction === "right") {
-      ctx.drawImage(heroRight,x,y, 40, 40)
+      ctx.drawImage(heroRight, x, y, 40, 40)
     } else if (direction === "left") {
-      ctx.drawImage(heroLeft,x,y,40,40)
+      ctx.drawImage(heroLeft, x, y, 40, 40)
     } else if (direction === "down") {
-      ctx.drawImage(heroDown,x,y,40,40)
+      ctx.drawImage(heroDown, x, y, 40, 40)
     } else if (direction === "up") {
-      ctx.drawImage(heroUp,x,y,40,40)
+      ctx.drawImage(heroUp, x, y, 40, 40)
     } else {
       throw "wrong direction input"
     }
