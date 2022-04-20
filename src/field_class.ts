@@ -34,4 +34,7 @@ export class Field {
   public getTiles(): Tile[] {
     return this.tiles;
   }
+  public getPositionFreedom(position: number): boolean {
+    return this.tiles[position].isThrough()
+  }
 }

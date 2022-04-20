@@ -5,6 +5,7 @@ import { Field } from "./field_class";
 import { Hero } from "./hero_subclass";
 import { Tile } from "./tiles_class";
 import { Boss } from "./boss_subclass";
+import { getRandomPosition } from "./get_random_position_function";
 
 // Acquire the rendering context
 const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
@@ -16,9 +17,9 @@ const heroRight = document.getElementById('hero-right') as HTMLImageElement;
 const heroDown = document.getElementById('hero-down') as HTMLImageElement;
 const heroLeft = document.getElementById('hero-left') as HTMLImageElement;
 
-let myHero: Hero = new Hero(100, 100, 100);
-let myBoss: Boss = new Boss(100, 100, 100);
 const myField: Field = new Field([4, 14, 16, 18, 19, 22, 23, 24, 26, 28, 29, 36, 41, 42, 43, 44, 46, 47, 48, 49, 52, 54, 62, 64, 66, 67, 69, 76, 77, 79, 82, 83, 84, 89, 94, 96, 97]);
+let myHero: Hero = new Hero(100, 100, 100, myField);
+let myBoss: Boss = new Boss(100, 100, 100, myField);
 
 
 // This function runs after the images are loaded

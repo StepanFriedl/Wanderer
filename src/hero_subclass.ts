@@ -1,10 +1,11 @@
 'use strict'
 
 import { Character } from "./character_class"
+import { Field } from "./field_class";
 
 export class Hero extends Character {
-  constructor(hp: number, dp: number, ap: number) {
-    super(hp, dp, ap);
+  constructor(hp: number, dp: number, ap: number, field: Field) {
+    super(hp, dp, ap, field);
   }
   public drawSelf(direction: string): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;

@@ -1,4 +1,5 @@
 import { Field } from "./field_class";
+import { getRandomPosition } from "./get_random_position_function";
 
 export class Character {
   private hp: number;
@@ -11,7 +12,7 @@ export class Character {
   private position: number;
   private level: number = 1;
 
-  constructor(hp: number, dp: number, ap: number, level?: number) {
+  constructor(hp: number, dp: number, ap: number, field: Field) {
     this.hp = hp;
     this.hpMax = hp;
     this.dp = dp;
@@ -19,8 +20,7 @@ export class Character {
     this.ap = ap;
     this.apMax = ap;
     
-    const temp: number = Math.floor(Math.random()*100)
-    this.position = temp;
+    this.position = getRandomPosition(field);
 
   }
   public getPosition(): number {

@@ -12,4 +12,5 @@ export class Tile {
   public setEmptyness(value: boolean) {
     this.isEmpty = value;
   }
+
 }
