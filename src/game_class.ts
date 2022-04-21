@@ -1,6 +1,7 @@
 'use strict'
 
 import { Boss } from "./boss_subclass";
+import { getRandomPosition } from "./get_random_position_function";
 import { diceRoll } from "./diceRoll function";
 import { Field } from "./field_class"
 import { Hero } from "./hero_subclass";
@@ -54,6 +55,7 @@ export class Game {
       this.spawnMonsters(d6);
       this.giveKeyToSomeRandomMonster();
       this.hero.nextAreaHp()
+      this.hero.setPosition(getRandomPosition(myField))
       this.round = 0;
       this.bossKilled = false;
       this.keyTaken = false;
@@ -133,12 +135,13 @@ export class Game {
     ctx.fillText("HP:   " + this.hero.getHp() + " / " + this.hero.getMaxHp(), xPosition, yPosition + spacing * 1.5);
     ctx.fillText("DP:   " + this.hero.getDp() + " / " + this.hero.getMaxDp(), xPosition, yPosition + spacing * 2.5);
     ctx.fillText("AP    " + this.hero.getAp() + " / " + this.hero.getMaxAp(), xPosition, yPosition + spacing * 3.5);
+    ctx.fillText("Level: " + this.level, xPosition, yPosition + spacing * 5);
     if (this.keyTaken) {
       ctx.fillStyle = "green"
-      ctx.fillText("Got key.", xPosition, yPosition + spacing * 5);
+      ctx.fillText("Got key.", xPosition, yPosition + spacing * 7);
     } else {
       ctx.fillStyle = "red"
-      ctx.fillText("Key missing.", xPosition, yPosition + spacing * 5);
+      ctx.fillText("Key missing.", xPosition, yPosition + spacing * 7);
     }
   }
   public clearTheField(): void {

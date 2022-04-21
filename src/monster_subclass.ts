@@ -16,7 +16,6 @@ export class Monster extends Character {
   public monsterBattle(position: number, heroPosition: number): void {
     if (position === heroPosition && this.getHp() > 0) {
       console.log("Monster fights hero.");
-      this.writeEnemyStatusText();
     } else { }
   }
   public giveKey(): void {

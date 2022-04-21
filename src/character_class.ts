@@ -25,6 +25,9 @@ export class Character {
     this.apMax = ap;
     this.position = getRandomPosition(field);
   }
+  public setPosition(value: number) {
+    this.position = value;
+  }
   public levelUp(): void {
     const diceA: number = diceRoll();
     this.hp += diceA;
@@ -63,6 +66,7 @@ export class Character {
         enemy.counterStrike(this);
       } else {
         console.log(this.iM() + " failed to strike.");
+        enemy.counterStrike(this)
       }
     }
   }
@@ -160,24 +164,48 @@ export class Character {
         if (field.getTiles()[this.position + 1].isThrough()) {
           tempBool = true;
           this.monsterBattle(this.position + 1, heroPosition);
+          if (game.getHero().getPosition() === this.position + 1) {
+            do {
+              this.strike(game.getHero())
+            } while (this.getHp() > 0 && game.getHero().getHp() > 0)
+          } else { }
+          game.clearTheField()
           this.moveRight(field);
         } else { }
       } else if (directionIndex <= 2 && this.position % 10 !== 0) { //left
         if (field.getTiles()[this.position - 1].isThrough()) {
           tempBool = true;
+          if (game.getHero().getPosition() === this.position - 1) {
+            do {
+              this.strike(game.getHero())
+            } while (this.getHp() > 0 && game.getHero().getHp() > 0)
+          } else { }
           this.monsterBattle(this.position - 1, heroPosition);
+          game.clearTheField()
           this.moveLeft(field);
         } else { }
       } else if (directionIndex <= 3 && this.position > 9) { //up
         if (field.getTiles()[this.position - 10].isThrough()) {
           tempBool = true;
+          if (game.getHero().getPosition() === this.position - 10) {
+            do {
+              this.strike(game.getHero())
+            } while (this.getHp() > 0 && game.getHero().getHp() > 0)
+          } else { }
           this.monsterBattle(this.position - 10, heroPosition);
+          game.clearTheField()
           this.moveUp(field);
         } else { }
       } else if (directionIndex <= 4 && this.position < 90) { //down
         if (field.getTiles()[this.position + 10].isThrough()) {
           tempBool = true;
+          if (game.getHero().getPosition() === this.position + 10) {
+            do {
+              this.strike(game.getHero())
+            } while (this.getHp() > 0 && game.getHero().getHp() > 0)
+          } else { }
           this.monsterBattle(this.position + 10, heroPosition);
+          game.clearTheField()
           this.moveDown(field);
         } else { }
       } else { }

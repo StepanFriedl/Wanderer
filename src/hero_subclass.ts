@@ -6,6 +6,7 @@ import { Game } from "./game_class";
 
 export class Hero extends Character {
   lookingDirection: string;
+
   constructor(field: Field, diceRoll: number) {
     let hp: number = 20 + 3 * diceRoll;
     let dp: number = 2 * diceRoll;
@@ -19,6 +20,7 @@ export class Hero extends Character {
   public changeLookLeft(): void {
     this.lookingDirection = "left"
   }
+
   public changeLookUp(): void {
     this.lookingDirection = "up"
   }
