@@ -146,7 +146,7 @@ export class Game {
     }
   }
   public clearTheField(): void {
-    if (this.getBoss().getHp() <= 0) {
+    if (this.getBoss().getHp() <= 0 && this.bossKilled !== true) {
       this.boss.die();
       this.bossKilled = true;
       this.hero.levelUp()
