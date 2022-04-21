@@ -13,25 +13,29 @@ export class Boss extends Character {
     super(hp, dp, sp, field);
   }
   public monsterBattle(position: number, heroPosition: number): void {
-    if (position === heroPosition && this.getHp()>0) {
+    if (position === heroPosition && this.getHp() > 0) {
       console.log("Boss fights hero.");
       this.writeEnemyStatusText();
     } else { }
   }
   public writeEnemyStatusText(): void {
-    const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-    const xPosition: number = 510;
-    const yPosition: number = 30;
-    const spacing: number = 20;
-    
-    ctx.clearRect(501,0, 99,400);
-    ctx.font = "20px Arial"
-    ctx.fillText("Boss", xPosition, yPosition);
-    ctx.font = "15px Arial"
-    ctx.fillText("HP:   " + super.getHp() + " / " + super.getMaxHp(), xPosition, yPosition + spacing * 1.5);
-    ctx.fillText("DP:   " + super.getDp() + " / " + super.getMaxDp(), xPosition, yPosition + spacing * 2.5);
-    ctx.fillText("AP    " + super.getAp() + " / " + super.getMaxAp(), xPosition, yPosition + spacing * 3.5);
+    if (this.getHp() > 0) {
+
+      const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const xPosition: number = 510;
+      const yPosition: number = 30;
+      const spacing: number = 20;
+
+      ctx.clearRect(501, 0, 99, 400);
+      ctx.font = "20px Arial"
+      ctx.fillStyle = "blue"
+      ctx.fillText("Boss", xPosition, yPosition);
+      ctx.font = "15px Arial"
+      ctx.fillText("HP:   " + super.getHp() + " / " + super.getMaxHp(), xPosition, yPosition + spacing * 1.5);
+      ctx.fillText("DP:   " + super.getDp() + " / " + super.getMaxDp(), xPosition, yPosition + spacing * 2.5);
+      ctx.fillText("AP    " + super.getAp() + " / " + super.getMaxAp(), xPosition, yPosition + spacing * 3.5);
+    }
   }
   public drawSelf(): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;

@@ -13,9 +13,12 @@ export class Game {
   private monsters: Monster[];
   private level: number;
   private round: number;
+  private bossKilled: boolean;
+  private keyTaken: boolean;
 
-  constructor() {
-    let myField: Field = new Field([4, 14, 16, 18, 19, 22, 23, 24, 26, 28, 29, 36, 41, 42, 43, 44, 46, 47, 48, 49, 52, 54, 62, 64, 66, 67, 69, 76, 77, 79, 82, 83, 84, 89, 94, 96, 97])
+  constructor(fieldArray: number[][]) {
+
+    let myField: Field = new Field(fieldArray[0])
     this.field = myField;
     this.field.drawField();
     let d6: number = diceRoll();
@@ -27,11 +30,42 @@ export class Game {
     this.boss.drawSelf();
     this.hero.drawSelf("down");
     this.spawnMonsters(d6);
-    this.drawMonsters();
+    this.giveKeyToSomeRandomMonster();
     this.round = 0;
+    this.keyTaken = false;
+    this.bossKilled = false
   }
-
-
+  public setBossKilled():void {
+    this.bossKilled = true;
+  }
+  public setKeyTaken(): void {
+    this.keyTaken = true;
+  }
+  public keys(): string {
+    return "key: " + this.keyTaken + "\r\nboss: " + this.bossKilled;
+  }
+  public nextArea(fieldArray: number[][]): void {
+    if (this.bossKilled && this.keyTaken) {      
+    const d6: number = diceRoll();
+      let myField: Field = new Field(fieldArray[this.level])
+      this.level++
+      const myBoss: Boss = new Boss(myField, d6, this.level)
+      this.field = myField;
+      this.boss = myBoss;
+      this.spawnMonsters(d6);
+      this.giveKeyToSomeRandomMonster();
+      this.hero.nextAreaHp()
+      this.round = 0;
+      this.bossKilled = false;
+      this.keyTaken = false;
+      console.log("Entering new area.");
+      
+    }
+  }
+  private giveKeyToSomeRandomMonster(): void {
+    const mathRandom: number = Math.floor(Math.random() * this.monsters.length)
+    this.monsters[mathRandom].giveKey();
+  }
   public getLevel(): number {
     return this.level;
   }
@@ -51,7 +85,7 @@ export class Game {
       this.boss.drawSelf();
     } else {
       console.log("boss is dead");
-      
+
     }
   }
   public drawMonsters(): void {
@@ -96,19 +130,34 @@ export class Game {
     const yPosition: number = 30;
     const spacing: number = 20;
     ctx.font = "20px Arial"
+    ctx.fillStyle = "blue"
     ctx.fillText("Hero", xPosition, yPosition);
     ctx.font = "15px Arial"
     ctx.fillText("HP:   " + this.hero.getHp() + " / " + this.hero.getMaxHp(), xPosition, yPosition + spacing * 1.5);
     ctx.fillText("DP:   " + this.hero.getDp() + " / " + this.hero.getMaxDp(), xPosition, yPosition + spacing * 2.5);
     ctx.fillText("AP    " + this.hero.getAp() + " / " + this.hero.getMaxAp(), xPosition, yPosition + spacing * 3.5);
+    if (this.keyTaken) {
+      ctx.fillStyle = "green"
+      ctx.fillText("Got key.", xPosition, yPosition + spacing * 5);
+    } else {
+      ctx.fillStyle = "red"
+      ctx.fillText("Key missing.", xPosition, yPosition + spacing * 5);
+
+    }
   }
   public clearTheField(): void {
     if (this.getBoss().getHp() <= 0) {
       this.boss.die();
+      this.bossKilled = true;
+      this.hero.levelUp()
     } else { }
-    for (let i: number = this.getMonsters().length - 1; i < this.getMonsters().length; i--) {
+    for (let i: number = this.getMonsters().length - 1; i >= 0; i--) {
       if (this.getMonsters()[i].getHp() <= 0) {
+        if (this.getMonsters()[i].hasKey()) {
+          this.keyTaken = true;
+        } else {}
         this.monsters.splice(i, 1)
+        this.hero.levelUp()
       }
     }
   }

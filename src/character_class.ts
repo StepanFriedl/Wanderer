@@ -26,11 +26,23 @@ export class Character {
 
     this.position = getRandomPosition(field);
   }
+    public levelUp(): void {
+      const diceA: number = diceRoll();
+      this.hp += diceA;
+      this.ap += diceA;
+      this.dp += diceA;
+      this.apMax += diceA;
+      this.dpMax += diceA;
+      this.hpMax += diceA;
+    }
   public die(): void {
     this.isAlive = false;
   }
   public areYouAlive(): boolean {
     return this.isAlive
+  }
+  public setHp(value: number): void {
+    this.hp = value;
   }
   public writeEnemyStatusText(): void { }
   public monsterBattle(position: number, heroPosition: number): void { }
@@ -42,7 +54,7 @@ export class Character {
     return this.dp;
   }
   public strike(enemy: Character) {
-    if (enemy.getHp() > 0) {
+    if (enemy.getHp() > 0 && this.getHp() >0) {
 
       const dice: number = diceRoll();
       const strikeValue: number = dice * 2 + this.getAp();
@@ -57,7 +69,7 @@ export class Character {
     }
   }
   public counterStrike(enemy: Character) {
-    if (enemy.getHp() > 0) {
+    if (enemy.getHp() > 0 && this.getHp() > 0) {
 
       const dice: number = diceRoll()
       const strikeValue: number = 2 * dice + this.getAp();
@@ -142,6 +154,7 @@ export class Character {
       } else { }
     }
   }
+  public drawSelf(direction: string): void {}
   public moveRandom(field: Field, game: Game): void {
     let tempBool: boolean = false;
     const heroPosition: number = game.getHero().getPosition();

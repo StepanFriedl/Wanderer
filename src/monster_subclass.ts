@@ -5,28 +5,36 @@ import { Field } from "./field_class";
 import { Game } from "./game_class";
 
 export class Monster extends Character {
-
+  private hasAKey: boolean;
   constructor(field: Field, diceRoll: number, level: number) {
+
     let hp: number = 2 * level * diceRoll;
     let dp: number = (level / 2) * diceRoll;
     let sp: number = level * diceRoll;
     super(hp, dp, sp, field);
+    this.hasAKey = false
   }
   public monsterBattle(position: number, heroPosition: number): void {
-    if (position === heroPosition && this.getHp()>0) {
+    if (position === heroPosition && this.getHp() > 0) {
       console.log("Monster fights hero.");
       this.writeEnemyStatusText();
     } else { }
   }
-
+  public giveKey(): void {
+    this.hasAKey = true;
+  }
+  public hasKey(): boolean {
+    return this.hasAKey;
+  }
   public writeEnemyStatusText(): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     const xPosition: number = 510;
     const yPosition: number = 30;
     const spacing: number = 20;
-    ctx.clearRect(501,0, 99,400);
+    ctx.clearRect(501, 0, 99, 400);
     ctx.font = "20px Arial"
+    ctx.fillStyle = "blue"
     ctx.fillText("Monster", xPosition, yPosition);
     ctx.font = "15px Arial"
     ctx.fillText("HP:   " + super.getHp() + " / " + super.getMaxHp(), xPosition, yPosition + spacing * 1.5);
@@ -72,7 +80,11 @@ export class Monster extends Character {
     } else {
       throw "Cannot draw, cause position is out of range."
     }
-    ctx.drawImage(skeleton, x, y, 40, 40)
+    if (this.hasAKey) {
+      ctx.drawImage(skeleton, x, y, 40, 40)
+    } else {
+      ctx.drawImage(skeleton, x+2, y+2, 36, 35)
+    }
   }
   public iM(): string {
     return "monster";

@@ -14,6 +14,7 @@ export class Hero extends Character {
     super(hp, dp, sp, field);
     let lookingDirection: string = "down";
   }
+
   public changeLookRight(): void {
     this.lookingDirection = "right"
   }
@@ -31,6 +32,33 @@ export class Hero extends Character {
   }
   public iM(): string {
     return "hero";
+  }
+
+  public nextAreaHp(): void {
+    const myMathRandomNumberZeroToTen: number = Math.floor(Math.random() * 10)
+    if (myMathRandomNumberZeroToTen < 1) {
+      super.setHp(super.getMaxHp())
+    } else if (myMathRandomNumberZeroToTen < 5) {
+      const maxHp: number = super.getMaxHp()
+      const thirdOfMaxHp: number = Math.floor(maxHp / 3)
+      const newHp: number = super.getHp() + thirdOfMaxHp;
+      if (newHp > maxHp) {
+        super.setHp(super.getMaxHp())
+      } else {
+        super.setHp(newHp);
+      }
+    } else if (myMathRandomNumberZeroToTen < 10) {
+      const maxHp: number = super.getMaxHp()
+      const tenthOfMaxHp: number = Math.floor(maxHp / 10)
+      const newHp: number = super.getHp() + tenthOfMaxHp;
+      if (newHp > maxHp) {
+        super.setHp(super.getMaxHp())
+      } else {
+        super.setHp(newHp);
+      }
+    } else {
+      throw "error in nextArea() function in game class"
+    }
   }
   public battle(position: number, game: Game): void {
     if (position === game.getBoss().getPosition()) {
