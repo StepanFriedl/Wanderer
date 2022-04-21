@@ -13,17 +13,19 @@ export class Monster extends Character {
     super(hp, dp, sp, field);
   }
   public monsterBattle(position: number, heroPosition: number): void {
-    if (position === heroPosition) {
+    if (position === heroPosition && this.getHp()>0) {
       console.log("Monster fights hero.");
       this.writeEnemyStatusText();
     } else { }
   }
+
   public writeEnemyStatusText(): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     const xPosition: number = 510;
     const yPosition: number = 30;
     const spacing: number = 20;
+    ctx.clearRect(501,0, 99,400);
     ctx.font = "20px Arial"
     ctx.fillText("Monster", xPosition, yPosition);
     ctx.font = "15px Arial"

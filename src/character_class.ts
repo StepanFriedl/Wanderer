@@ -26,6 +26,12 @@ export class Character {
 
     this.position = getRandomPosition(field);
   }
+  public die(): void {
+    this.isAlive = false;
+  }
+  public areYouAlive(): boolean {
+    return this.isAlive
+  }
   public writeEnemyStatusText(): void { }
   public monsterBattle(position: number, heroPosition: number): void { }
   public battle(position: number, game: Game) { }
@@ -35,11 +41,32 @@ export class Character {
   public getDpValue(): number {
     return this.dp;
   }
-
   public strike(enemy: Character) {
-    const dice: number = diceRoll();
-    if(2*dice+this.getAp() > enemy.getDp()) {
-      console.log("Striking " + enemy.iM());      
+    if (enemy.getHp() > 0) {
+
+      const dice: number = diceRoll();
+      const strikeValue: number = dice * 2 + this.getAp();
+      if (strikeValue > enemy.getDp()) {
+        console.log("Striking " + enemy.iM() + ".");
+        enemy.getStrike(strikeValue);
+        enemy.counterStrike(this);
+      } else {
+        console.log(this.iM() + " failed to strike.");
+
+      }
+    }
+  }
+  public counterStrike(enemy: Character) {
+    if (enemy.getHp() > 0) {
+
+      const dice: number = diceRoll()
+      const strikeValue: number = 2 * dice + this.getAp();
+      if (strikeValue > enemy.getDp()) {
+        console.log(this.iM() + " is counterstriking.");
+        enemy.getStrike(strikeValue);
+      } else {
+        console.log(this.iM() + " failed to counterstrike.");
+      }
     }
   }
   public attackTile(game: Game, targetPosition: number): void {
@@ -61,6 +88,9 @@ export class Character {
   }
   public getMaxAp(): number {
     return this.apMax
+  }
+  public getStrike(strikeValue: number): void {
+    this.hp -= strikeValue - this.dp;
   }
   public getPosition(): number {
     return this.position;

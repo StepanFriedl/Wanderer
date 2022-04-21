@@ -32,16 +32,40 @@ function onKeyPress(event: any) {
 
     //spacebar
     case 32:
+      let ifBoss: boolean = false;
+      let ifMonster: boolean = false;
+      let monsterIndex: number = 0;
+      
       //boss
       if (myGame.getHero().getPosition() === myGame.getBoss().getPosition()) {
         myGame.getHero().strike(myGame.getBoss())
+        myGame.getBoss().writeEnemyStatusText();
+        ifBoss = true;
       }
       //monsters
       for (let i: number = 0; i < myGame.getMonsters().length; i++) {
         if (myGame.getHero().getPosition() === myGame.getMonsters()[i].getPosition()) {
-          myGame.getHero().strike(myGame.getMonsters()[i])
+          do {
+            myGame.getHero().strike(myGame.getMonsters()[i])
+            myGame.getMonsters()[i].writeEnemyStatusText();
+          } while (myGame.getMonsters()[i].getHp() > 0 && myGame.getHero().getHp() > 0)
+          ifMonster = true;
+          monsterIndex = i;
         }
       }
+      myGame.clearTheField();
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      myGame.drawField();
+      myGame.drawBoss()
+      myGame.drawHero(myGame.getHero().getLookingDirection());
+      myGame.drawMonsters();
+      myGame.writeHeroStatusText();
+      if (ifBoss) {/* 
+        myGame.getBoss().writeEnemyStatusText(); */
+      } else if (ifMonster) {/* 
+        myGame.getMonsters()[monsterIndex].writeEnemyStatusText(); */
+      }
+
       break;
 
     //left
@@ -50,7 +74,7 @@ function onKeyPress(event: any) {
       myGame.getHero().heroMoveLeft(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
-      myGame.drawHero("left");
+      myGame.drawHero(myGame.getHero().getLookingDirection());
       myGame.drawMonsters();
       myGame.writeHeroStatusText();
       break;
@@ -61,7 +85,7 @@ function onKeyPress(event: any) {
       myGame.getHero().heroMoveUp(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
-      myGame.drawHero("up");
+      myGame.drawHero(myGame.getHero().getLookingDirection());
       myGame.drawMonsters();
       myGame.writeHeroStatusText();
       break;
@@ -72,7 +96,7 @@ function onKeyPress(event: any) {
       myGame.getHero().heroMoveRight(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
-      myGame.drawHero("right");
+      myGame.drawHero(myGame.getHero().getLookingDirection());
       myGame.drawMonsters();
       myGame.writeHeroStatusText();
       break;
@@ -83,7 +107,7 @@ function onKeyPress(event: any) {
       myGame.getHero().heroMoveDown(myGame.getField(), myGame);
       myGame.drawField();
       myGame.drawBoss()
-      myGame.drawHero("down");
+      myGame.drawHero(myGame.getHero().getLookingDirection());
       myGame.drawMonsters();
       myGame.writeHeroStatusText();
       break;

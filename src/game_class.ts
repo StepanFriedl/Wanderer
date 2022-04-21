@@ -47,7 +47,12 @@ export class Game {
     this.field.drawField();
   }
   public drawBoss(): void {
-    this.boss.drawSelf();
+    if (this.getBoss().areYouAlive()) {
+      this.boss.drawSelf();
+    } else {
+      console.log("boss is dead");
+      
+    }
   }
   public drawMonsters(): void {
     for (let i: number = 0; i < this.monsters.length; i++) {
@@ -96,5 +101,15 @@ export class Game {
     ctx.fillText("HP:   " + this.hero.getHp() + " / " + this.hero.getMaxHp(), xPosition, yPosition + spacing * 1.5);
     ctx.fillText("DP:   " + this.hero.getDp() + " / " + this.hero.getMaxDp(), xPosition, yPosition + spacing * 2.5);
     ctx.fillText("AP    " + this.hero.getAp() + " / " + this.hero.getMaxAp(), xPosition, yPosition + spacing * 3.5);
+  }
+  public clearTheField(): void {
+    if (this.getBoss().getHp() <= 0) {
+      this.boss.die();
+    } else { }
+    for (let i: number = this.getMonsters().length - 1; i < this.getMonsters().length; i--) {
+      if (this.getMonsters()[i].getHp() <= 0) {
+        this.monsters.splice(i, 1)
+      }
+    }
   }
 }

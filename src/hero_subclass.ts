@@ -5,11 +5,29 @@ import { Field } from "./field_class";
 import { Game } from "./game_class";
 
 export class Hero extends Character {
+
+  lookingDirection: string;
   constructor(field: Field, diceRoll: number) {
     let hp: number = 20 + 3 * diceRoll;
     let dp: number = 2 * diceRoll;
     let sp: number = 5 + diceRoll;
     super(hp, dp, sp, field);
+    let lookingDirection: string = "down";
+  }
+  public changeLookRight(): void {
+    this.lookingDirection = "right"
+  }
+  public changeLookLeft(): void {
+    this.lookingDirection = "left"
+  }
+  public changeLookUp(): void {
+    this.lookingDirection = "up"
+  }
+  public changeLookDown(): void {
+    this.lookingDirection = "down"
+  }
+  public getLookingDirection(): string {
+    return this.lookingDirection
   }
   public iM(): string {
     return "hero";
@@ -36,6 +54,7 @@ export class Hero extends Character {
         game.makeRound(game);
       } else { }
     } else { }
+    this.changeLookRight();
   }
   public heroMoveLeft(field: Field, game?: Game): void {
     if (super.getPosition() > 0) {
@@ -47,6 +66,7 @@ export class Hero extends Character {
         game.makeRound(game);
       } else { }
     } else { }
+    this.changeLookLeft();
   }
   public heroMoveDown(field: Field, game?: Game): void {
     if (super.getPosition() < 90) {
@@ -57,6 +77,7 @@ export class Hero extends Character {
         game.makeRound(game);
       } else { }
     }
+    this.changeLookDown();
   }
   public heroMoveUp(field: Field, game?: Game): void {
     if (super.getPosition() > 9) {
@@ -68,6 +89,7 @@ export class Hero extends Character {
         game.makeRound(game);
       } else { }
     }
+    this.changeLookUp();
   }
   public drawSelf(direction: string): void {
     const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
