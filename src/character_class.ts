@@ -23,18 +23,17 @@ export class Character {
     this.dpMax = dp;
     this.ap = ap;
     this.apMax = ap;
-
     this.position = getRandomPosition(field);
   }
-    public levelUp(): void {
-      const diceA: number = diceRoll();
-      this.hp += diceA;
-      this.ap += diceA;
-      this.dp += diceA;
-      this.apMax += diceA;
-      this.dpMax += diceA;
-      this.hpMax += diceA;
-    }
+  public levelUp(): void {
+    const diceA: number = diceRoll();
+    this.hp += diceA;
+    this.ap += diceA;
+    this.dp += diceA;
+    this.apMax += diceA;
+    this.dpMax += diceA;
+    this.hpMax += diceA;
+  }
   public die(): void {
     this.isAlive = false;
   }
@@ -54,7 +53,7 @@ export class Character {
     return this.dp;
   }
   public strike(enemy: Character) {
-    if (enemy.getHp() > 0 && this.getHp() >0) {
+    if (enemy.getHp() > 0 && this.getHp() > 0) {
 
       const dice: number = diceRoll();
       const strikeValue: number = dice * 2 + this.getAp();
@@ -64,13 +63,11 @@ export class Character {
         enemy.counterStrike(this);
       } else {
         console.log(this.iM() + " failed to strike.");
-
       }
     }
   }
   public counterStrike(enemy: Character) {
     if (enemy.getHp() > 0 && this.getHp() > 0) {
-
       const dice: number = diceRoll()
       const strikeValue: number = 2 * dice + this.getAp();
       if (strikeValue > enemy.getDp()) {
@@ -124,7 +121,6 @@ export class Character {
     if (this.position % 10 === 9) {
     } else if (possibility) {
       this.position += 1;
-
     } else { }
   }
   public moveLeft(field: Field, game?: Game): void {
@@ -154,19 +150,17 @@ export class Character {
       } else { }
     }
   }
-  public drawSelf(direction: string): void {}
+  public drawSelf(direction: string): void { }
   public moveRandom(field: Field, game: Game): void {
     let tempBool: boolean = false;
     const heroPosition: number = game.getHero().getPosition();
     do {
       let directionIndex: number = Math.ceil(Math.random() * 4);
       if (directionIndex <= 1 && this.position % 10 !== 9) { //right   
-
         if (field.getTiles()[this.position + 1].isThrough()) {
           tempBool = true;
           this.monsterBattle(this.position + 1, heroPosition);
           this.moveRight(field);
-
         } else { }
       } else if (directionIndex <= 2 && this.position % 10 !== 0) { //left
         if (field.getTiles()[this.position - 1].isThrough()) {

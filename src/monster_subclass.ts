@@ -2,12 +2,11 @@
 
 import { Character } from "./character_class"
 import { Field } from "./field_class";
-import { Game } from "./game_class";
 
 export class Monster extends Character {
   private hasAKey: boolean;
-  constructor(field: Field, diceRoll: number, level: number) {
 
+  constructor(field: Field, diceRoll: number, level: number) {
     let hp: number = 2 * level * diceRoll;
     let dp: number = (level / 2) * diceRoll;
     let sp: number = level * diceRoll;
@@ -83,7 +82,7 @@ export class Monster extends Character {
     if (this.hasAKey) {
       ctx.drawImage(skeleton, x, y, 40, 40)
     } else {
-      ctx.drawImage(skeleton, x+2, y+2, 36, 35)
+      ctx.drawImage(skeleton, x + 2, y + 2, 36, 35)
     }
   }
   public iM(): string {

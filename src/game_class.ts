@@ -17,7 +17,6 @@ export class Game {
   private keyTaken: boolean;
 
   constructor(fieldArray: number[][]) {
-
     let myField: Field = new Field(fieldArray[0])
     this.field = myField;
     this.field.drawField();
@@ -35,7 +34,7 @@ export class Game {
     this.keyTaken = false;
     this.bossKilled = false
   }
-  public setBossKilled():void {
+  public setBossKilled(): void {
     this.bossKilled = true;
   }
   public setKeyTaken(): void {
@@ -45,8 +44,8 @@ export class Game {
     return "key: " + this.keyTaken + "\r\nboss: " + this.bossKilled;
   }
   public nextArea(fieldArray: number[][]): void {
-    if (this.bossKilled && this.keyTaken) {      
-    const d6: number = diceRoll();
+    if (this.bossKilled && this.keyTaken) {
+      const d6: number = diceRoll();
       let myField: Field = new Field(fieldArray[this.level])
       this.level++
       const myBoss: Boss = new Boss(myField, d6, this.level)
@@ -59,7 +58,6 @@ export class Game {
       this.bossKilled = false;
       this.keyTaken = false;
       console.log("Entering new area.");
-      
     }
   }
   private giveKeyToSomeRandomMonster(): void {
@@ -85,7 +83,6 @@ export class Game {
       this.boss.drawSelf();
     } else {
       console.log("boss is dead");
-
     }
   }
   public drawMonsters(): void {
@@ -142,7 +139,6 @@ export class Game {
     } else {
       ctx.fillStyle = "red"
       ctx.fillText("Key missing.", xPosition, yPosition + spacing * 5);
-
     }
   }
   public clearTheField(): void {
@@ -155,7 +151,7 @@ export class Game {
       if (this.getMonsters()[i].getHp() <= 0) {
         if (this.getMonsters()[i].hasKey()) {
           this.keyTaken = true;
-        } else {}
+        } else { }
         this.monsters.splice(i, 1)
         this.hero.levelUp()
       }

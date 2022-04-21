@@ -5,7 +5,6 @@ import { Field } from "./field_class";
 import { Game } from "./game_class";
 
 export class Hero extends Character {
-
   lookingDirection: string;
   constructor(field: Field, diceRoll: number) {
     let hp: number = 20 + 3 * diceRoll;
@@ -14,7 +13,6 @@ export class Hero extends Character {
     super(hp, dp, sp, field);
     let lookingDirection: string = "down";
   }
-
   public changeLookRight(): void {
     this.lookingDirection = "right"
   }
@@ -33,7 +31,6 @@ export class Hero extends Character {
   public iM(): string {
     return "hero";
   }
-
   public nextAreaHp(): void {
     const myMathRandomNumberZeroToTen: number = Math.floor(Math.random() * 10)
     if (myMathRandomNumberZeroToTen < 1) {
@@ -74,7 +71,6 @@ export class Hero extends Character {
   }
   public heroMoveRight(field: Field, game?: Game): void {
     if (super.getPosition() < 99) {
-
       const possibility: boolean = field.getTiles()[super.getPosition() + 1].isThrough();
       if (super.getPosition() % 10 === 9) { } else if (possibility) {
         this.battle(this.getPosition() + 1, game);
@@ -173,5 +169,4 @@ export class Hero extends Character {
       throw "wrong direction input"
     }
   }
-
 }

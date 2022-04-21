@@ -2,8 +2,8 @@
 
 export class Tile {
   private isEmpty: boolean = false;
-  constructor() {}
 
+  constructor() { }
   public isThrough(): boolean {
     return this.isEmpty;
   }
