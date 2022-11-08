@@ -9,10 +9,10 @@ When a hero enters a tile which is occupied by a monster, battle forms. Hero can
 
 ## To run this game, clone this repo locally, then:
 
-'npm install'
+`npm install`
 
-'npm start'
+`npm start`
 
-run 'http://localhost:8080/'
+run `http://localhost:8080/`
 
 Good luck and have fun!
