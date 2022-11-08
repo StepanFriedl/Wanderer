@@ -7,6 +7,9 @@ import { Field } from "./field_class"
 import { Hero } from "./hero_subclass";
 import { Monster } from "./monster_subclass";
 
+const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
+
 export class Game {
   private field: Field;
   private hero: Hero;
@@ -35,6 +38,7 @@ export class Game {
     this.keyTaken = false;
     this.bossKilled = false
   }
+
   public setBossKilled(): void {
     this.bossKilled = true;
   }
@@ -45,6 +49,11 @@ export class Game {
     return "key: " + this.keyTaken + "\r\nboss: " + this.bossKilled;
   }
   public nextArea(fieldArray: number[][]): void {
+    console.log("AAA");
+    console.log(fieldArray.length);
+    console.log(this.level + 1);
+    console.log("AAA");
+
     if (this.bossKilled && this.keyTaken) {
       const d6: number = diceRoll();
       let myField: Field = new Field(fieldArray[this.level])
